@@ -10,4 +10,29 @@
             (#{dishFlavor.dishId},#{dishFlavor.name},#{dishFlavor.value})
         </foreach>
     </insert>
+
+
+    <select id="pageQuery" resultType="com.sky.vo.DishVO">
+        select d.*,df.name as categoryName from dish d left outer join category df on d.category_id = df.id
+        <where>
+            <if test="name != null">
+                and d.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and d.category_id = #{categoryId}
+            </if>
+           <if test="status != null">
+                and d.status = #{status}
+            </if>
+        </where>
+            order by d.create_time desc
+    </select>
+
+    <delete id="deleteByDishIds">
+        delete from dish_flavor where dish_id in
+        <foreach collection="dishIds" item="dishId" open="(" separator="," close=")">
+            #{dishId}
+        </foreach>
+    </delete>
+
 </mapper>

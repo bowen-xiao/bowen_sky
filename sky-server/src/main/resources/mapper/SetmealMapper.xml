@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sky.mapper.DishMapper">
+<mapper namespace="com.sky.mapper.SetmealMapper">
     <!--
         useGeneratedKeys:true 表示获取主键值
         keyProperty="id" 表示将主键值赋给id属性
@@ -12,10 +12,12 @@
         values (#{name}, #{status}, #{categoryId}, #{price}, #{image}, #{description}, #{createTime}, #{updateTime},
                 #{createUser}, #{updateUser})
     </insert>
-    <delete id="deleteByIds">
-        delete from dish where id in
-        <foreach collection="ids" open="(" close=")" separator="," item="id">
-            #{id}
+
+
+    <select id="getSetmealIdsByDishIds" resultType="java.lang.Long">
+        select id from  setmeal_dish where dish_id in
+        <foreach collection="ids" item="delishId" separator="," open="(" close=")">
+            #{delishId}
         </foreach>
-    </delete>
+    </select>
 </mapper>
