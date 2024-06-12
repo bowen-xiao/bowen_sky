@@ -30,12 +30,13 @@ public class DishController {
 
     /**
      * 添加菜品
+     *
      * @param dto
      * @return
      */
     @PostMapping
     @ApiOperation("添加菜品")
-    public Result<String> save(@RequestBody DishDTO dto){
+    public Result<String> save(@RequestBody DishDTO dto) {
         log.info("添加菜品：{}", dto);
         dishService.saveWithFlavor(dto);
         return Result.success();
@@ -43,15 +44,15 @@ public class DishController {
 
     @GetMapping("/page")
     @ApiOperation("菜品分页查询")
-    public Result<PageResult> pageQuery(DishPageQueryDTO dto){
+    public Result<PageResult> pageQuery(DishPageQueryDTO dto) {
         log.info("菜品分页查询：{}", dto);
-        PageResult result  = dishService.queryPage(dto);
+        PageResult result = dishService.queryPage(dto);
         return Result.success(result);
     }
 
     @DeleteMapping
     @ApiOperation("菜品批量删除")
-    public Result delete(@RequestParam List<Long> ids){
+    public Result delete(@RequestParam List<Long> ids) {
         log.info("菜品批量删除：{}", ids);
         dishService.deleteBatch(ids);
         return Result.success();
@@ -59,11 +60,19 @@ public class DishController {
 
     @GetMapping("/{id}")
     @ApiOperation("根据ID查菜品")
-    public Result<DishVO> getById(@PathVariable Long id){
+    public Result<DishVO> getById(@PathVariable Long id) {
         log.info("根据ID查菜品：{}", id);
         return Result.success(dishService.getByIdWithFlavor(id));
     }
 
+
+    @PutMapping
+    @ApiOperation("更新菜品")
+    public Result update(@RequestBody DishDTO dto) {
+        log.info("更新菜品：{}", dto);
+        dishService.updateWithFlavor(dto);
+        return Result.success();
+    }
 
 
 }
