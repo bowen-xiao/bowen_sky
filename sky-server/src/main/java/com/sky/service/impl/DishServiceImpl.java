@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
+import com.sky.controller.user.DishController;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
@@ -19,10 +20,12 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -36,6 +39,7 @@ public class DishServiceImpl implements DishService {
 
     @Autowired
     private SetmealMapper setmealMapper;
+
 
     /**
      * 新增菜品
@@ -52,6 +56,7 @@ public class DishServiceImpl implements DishService {
         if(flavors == null || flavors.size() == 0){return;}
         flavors.forEach(dishFlavor -> dishFlavor.setDishId(id));
         dishFlavorMapper.insertBatch(flavors);
+
     }
 
     @Override
@@ -89,6 +94,7 @@ public class DishServiceImpl implements DishService {
             });*/
         dishMapper.deleteByIds(ids);
         dishFlavorMapper.deleteByDishIds(ids);
+
     }
 
 
@@ -116,6 +122,7 @@ public class DishServiceImpl implements DishService {
         if(flavors == null || flavors.size() == 0){return;}
         flavors.forEach(dishFlavor -> dishFlavor.setDishId(dto.getId()));
         dishFlavorMapper.insertBatch(flavors);
+
     }
 
 
@@ -142,4 +149,5 @@ public class DishServiceImpl implements DishService {
 
         return dishVOList;
     }
+
 }
