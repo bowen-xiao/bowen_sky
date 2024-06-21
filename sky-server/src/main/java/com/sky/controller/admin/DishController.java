@@ -87,6 +87,16 @@ public class DishController {
         return Result.success();
     }
 
+    @PostMapping("/status/{status}")
+    @ApiOperation("更新菜品状态")
+    public Result updateDishSatus(@PathVariable Integer status,Long id) {
+        log.info("更新菜品：{}", id);
+        dishService.updateStatus(id,status);
+        //清理redis中的缓存数据
+        clearCache(CACHE_DISH_LIST + "*");
+        return Result.success();
+    }
+
 
     /**
      * 更新redis 中的缓存数据与后台一致
