@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -49,9 +50,9 @@ public interface OrderMapper {
     @Select("select * from orders where status = #{status}")
     List<Orders> getByStatus(Integer status);
 
-    Double getByMap(HashMap map);
+    Double getByMap(Map map);
 
-    Integer getByOrderMap(HashMap map);
+    Integer getByOrderMap(Map map);
 
 
     List<GoodsSalesDTO> getSaleTop10(LocalDateTime beginTime, LocalDateTime endTime);

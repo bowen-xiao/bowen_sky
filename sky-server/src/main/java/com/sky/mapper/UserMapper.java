@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -17,5 +18,5 @@ public interface UserMapper {
     @Select("select * from user where openid = #{userId}")
     User getById(Long userId);
 
-    Integer getByMap(HashMap map);
+    Integer getByMap(Map map);
 }
