@@ -49,4 +49,6 @@ public interface OrderMapper {
     List<Orders> getByStatus(Integer status);
 
     Double getByMap(HashMap map);
+
+    Integer getByOrderMap(HashMap map);
 }
