@@ -27,12 +27,13 @@ public class WebSocketTask {
     /**
      * 通过WebSocket每隔5秒向客户端发送消息
      */
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void sendMessageToClient() {
-        //log.info("sendMessageToClient :::这是来自服务端的消息 ");
-        webSocketServer.sendToAllClient("这是来自服务端的消息：" + DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
-
-        List<Orders> ordersList = orderMapper.getByStatus(Orders.TO_BE_CONFIRMED);
+        //可以主动向客户端发消息
+        log.info("sendMessageToClient :::这是来自服务端的消息 ");
+       // webSocketServer.sendToAllClient("这是来自服务端的消息：" + DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
+        // 每分钟推送一次未接单的信息
+       /* List<Orders> ordersList = orderMapper.getByStatus(Orders.TO_BE_CONFIRMED);
         if(ordersList != null && ordersList.size() >0){
             ordersList.forEach( orders -> {
                 Map map = new HashMap();
@@ -42,6 +43,6 @@ public class WebSocketTask {
                 webSocketServer.sendToAllClient(JSON.toJSONString(map));
 
             });
-        }
+        }*/
     }
 }

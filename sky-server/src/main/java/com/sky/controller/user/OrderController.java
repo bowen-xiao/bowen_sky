@@ -56,4 +56,53 @@ public class OrderController {
         OrderVO orderVO = orderService.details(id);
         return Result.success(orderVO);
     }
+
+    /**
+     * 用户催单信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/reminder/{id}")
+    @ApiOperation("用户催单")
+    public Result reminder(@PathVariable Long id){
+//        orderService.paySuccess(outTradeNo);
+        //用户催单
+        orderService.reminder(id);
+        return Result.success();
+    }
+
+
+    /**
+     * 无法实现支付的测试方法
+     *
+     * @param outTradeNo
+     * @return
+     */
+    @GetMapping("/paysuccess/{outTradeNo}")
+    @ApiOperation("用于测试支付成功")
+    public Result paySuccessTest(@PathVariable String outTradeNo){
+//        orderService.paySuccess(outTradeNo);
+        log.info("测试支付成功..::{}.....",outTradeNo);
+        orderService.paySuccess(outTradeNo);
+        return Result.success();
+    }
+
+ /**
+     * 无法实现支付的测试方法
+     *
+     * @param outTradeNo
+     * @return
+     */
+   /* @GetMapping("/order/orderDetail/{id}")
+    @ApiOperation("用户查询订单详细")
+    public Result paySuccessTest(@PathVariable String outTradeNo){
+//        orderService.paySuccess(outTradeNo);
+        log.info("测试支付成功..::{}.....",outTradeNo);
+        orderService.paySuccess(outTradeNo);
+        return Result.success();
+    }*/
+
+
+
 }
